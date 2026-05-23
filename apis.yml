@@ -1,0 +1,126 @@
+aid: partykit
+name: PartyKit
+description: >-
+  PartyKit is a real-time backend framework, now part of Cloudflare, that
+  wraps Cloudflare Durable Objects with an opinionated developer experience
+  for building multiplayer applications. It exposes a Party.Server library API
+  for backend logic, a PartySocket client API for WebSockets, a Y-PartyKit
+  Yjs integration, an HTTP/WebSocket interface at *.partykit.dev URLs, a CLI
+  for local dev and deployment, and integrations with React, Next.js, and
+  Remix.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/partykit/refs/heads/main/apis.yml
+created: '2026-05-23'
+modified: '2026-05-23'
+specificationVersion: '0.19'
+tags:
+  - Real-Time
+  - Multiplayer
+  - WebSockets
+  - Cloudflare
+  - Durable Objects
+  - Edge
+  - CRDT
+  - Yjs
+  - Serverless
+apis:
+  - aid: partykit:party-server
+    name: PartyKit Party.Server (Server API)
+    description: >-
+      Library API for defining server-side logic for a "party" - a backend
+      object backed by a Cloudflare Durable Object. Provides lifecycle hooks
+      for connections, messages, requests, alarms, and state persistence.
+    humanURL: https://docs.partykit.io/reference/partyserver-api/
+    baseURL: https://docs.partykit.io/reference/partyserver-api/
+    tags:
+      - Server API
+      - Durable Objects
+      - WebSockets
+      - Hooks
+    properties:
+      - type: Documentation
+        url: https://docs.partykit.io/reference/partyserver-api/
+      - type: SDK
+        url: https://www.npmjs.com/package/partykit
+      - type: SDK
+        url: https://www.npmjs.com/package/partyserver
+  - aid: partykit:partysocket
+    name: PartyKit PartySocket (Client API)
+    description: >-
+      Browser and runtime client library for connecting to a PartyKit server
+      over WebSockets. Wraps the standard WebSocket API with reconnection,
+      buffering, and resilience. Runs in Web, ServiceWorker, Node.js, React
+      Native, Cloudflare Workers, Deno, and Bun.
+    humanURL: https://docs.partykit.io/reference/partysocket-api/
+    baseURL: https://docs.partykit.io/reference/partysocket-api/
+    tags:
+      - Client SDK
+      - WebSockets
+      - Browser
+      - Cross-Runtime
+    properties:
+      - type: Documentation
+        url: https://docs.partykit.io/reference/partysocket-api/
+      - type: SDK
+        url: https://www.npmjs.com/package/partysocket
+  - aid: partykit:y-partykit
+    name: Y-PartyKit (Yjs Integration)
+    description: >-
+      Yjs provider for PartyKit that turns a party into a Yjs collaboration
+      backend, enabling shared text, rich text, and structured CRDT documents
+      across many clients.
+    humanURL: https://docs.partykit.io/reference/y-partykit-api/
+    baseURL: https://docs.partykit.io/reference/y-partykit-api/
+    tags:
+      - Yjs
+      - CRDT
+      - Collaboration
+    properties:
+      - type: Documentation
+        url: https://docs.partykit.io/reference/y-partykit-api/
+      - type: SDK
+        url: https://www.npmjs.com/package/y-partykit
+  - aid: partykit:deployed-party-http
+    name: PartyKit Deployed Party (HTTP / WebSocket)
+    description: >-
+      Public HTTP and WebSocket interface for a deployed PartyKit project at
+      project.user.partykit.dev. Each party is reachable at
+      /parties/{party}/{room} and accepts WebSocket upgrades or HTTP requests.
+    humanURL: https://docs.partykit.io/how-partykit-works/
+    baseURL: https://{project}.{user}.partykit.dev
+    tags:
+      - HTTP
+      - WebSocket
+      - Rooms
+      - Parties
+    properties:
+      - type: Documentation
+        url: https://docs.partykit.io/how-partykit-works/
+common:
+  - type: Website
+    url: https://www.partykit.io
+  - type: Portal
+    url: https://docs.partykit.io
+  - type: Documentation
+    url: https://docs.partykit.io
+  - type: Blog
+    url: https://blog.partykit.io
+  - type: GitHub
+    url: https://github.com/cloudflare/partykit
+  - type: CLI
+    url: https://docs.partykit.io/reference/partykit-cli/
+  - type: Examples
+    url: https://docs.partykit.io/examples/
+  - type: Tutorials
+    url: https://docs.partykit.io/guides/
+  - type: TermsOfService
+    url: https://www.cloudflare.com/website-terms/
+  - type: PrivacyPolicy
+    url: https://www.cloudflare.com/privacypolicy/
+  - type: Community
+    url: https://discord.gg/g5uqHQJc3z
+maintainers:
+  - FN: Kin Lane
+    email: kinlane@gmail.com
