@@ -13,7 +13,7 @@ image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/partykit/refs/heads/main/apis.yml
 created: '2026-05-23'
-modified: '2026-05-23'
+modified: '2026-05-29'
 specificationVersion: '0.19'
 tags:
   - Real-Time
@@ -98,6 +98,8 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.partykit.io/how-partykit-works/
+      - type: AsyncAPI
+        url: https://raw.githubusercontent.com/api-evangelist/partykit/refs/heads/main/asyncapi/partykit-asyncapi.yml
 common:
   - type: Website
     url: https://www.partykit.io

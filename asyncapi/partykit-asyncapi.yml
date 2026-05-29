@@ -1,0 +1,150 @@
+asyncapi: '2.6.0'
+info:
+  title: PartyKit Realtime Protocol
+  version: '1.0.0'
+  description: >-
+    AsyncAPI description of the PartyKit realtime protocol. PartyKit is a
+    realtime backend framework (acquired by Cloudflare) that wraps Cloudflare
+    Durable Objects with an opinionated developer experience for building
+    multiplayer applications. A "party" is a server instance backed by a
+    Durable Object, and a "room" is a uniquely identified party instance.
+    Clients connect over WebSockets (typically via the PartySocket client) to
+    `/parties/{party}/{room}` on a deployed PartyKit project. The same URL
+    also accepts standard HTTP requests, which are dispatched to the server's
+    `onRequest` handler.
+
+    This specification describes the platform protocol surface that PartyKit
+    exposes to clients: room connections, server-to-client broadcast, and
+    bidirectional message exchange. The shape of individual application
+    messages is defined by the developer's Party.Server implementation; this
+    spec models the transport contract.
+  contact:
+    name: PartyKit
+    url: https://docs.partykit.io
+  license:
+    name: Documentation
+    url: https://docs.partykit.io
+defaultContentType: application/json
+servers:
+  production:
+    url: '{project}.{user}.partykit.dev'
+    protocol: wss
+    description: >-
+      Deployed PartyKit project endpoint. Each deployed project is served at
+      `{project}.{user}.partykit.dev` and accepts both WebSocket upgrades and
+      standard HTTP requests under `/parties/{party}/{room}`.
+    variables:
+      project:
+        description: The deployed project name.
+        default: my-project
+      user:
+        description: The PartyKit user (account) the project belongs to.
+        default: my-user
+  local:
+    url: 'localhost:1999'
+    protocol: ws
+    description: >-
+      Local development server started by `partykit dev`. Defaults to port
+      1999.
+channels:
+  '/parties/{party}/{room}':
+    description: >-
+      A PartyKit room channel. The `party` segment identifies which Party
+      class to route to (defaults to `main`), and the `room` segment is the
+      room id. The PartyKit runtime guarantees that every connection using
+      the same `room` id is routed to the same Durable Object instance, so a
+      room represents a single, isolated, stateful server. Clients open a
+      WebSocket against this path; the server invokes `onConnect` for each
+      new connection and `onMessage` for each inbound message, and may use
+      `Room.broadcast()` to deliver messages to all connected clients.
+    parameters:
+      party:
+        description: >-
+          The name of the Party (Party.Server class) to route to. PartyKit
+          defaults this to `main` when omitted by the client.
+        schema:
+          type: string
+          default: main
+      room:
+        description: >-
+          The room id. Connections sharing the same room id are routed to
+          the same party instance (Durable Object).
+        schema:
+          type: string
+    bindings:
+      ws:
+        query:
+          type: object
+          description: >-
+            Query parameters appended to the WebSocket URL. PartySocket
+            clients may pass an optional `id` to identify the connection,
+            and a developer-defined `query` async function may append
+            additional parameters (for example, an auth token).
+          properties:
+            id:
+              type: string
+              description: Optional connection id supplied by the client.
+        bindingVersion: '0.1.0'
+    publish:
+      operationId: clientSendMessage
+      summary: Client sends a message to the party.
+      description: >-
+        A connected client sends a message over the WebSocket. The PartyKit
+        runtime delivers it to the party's `onMessage(message, sender)`
+        handler. Messages are either UTF-8 strings or binary `ArrayBuffer`
+        payloads; application-level structure (for example, JSON envelopes)
+        is defined by the developer.
+      message:
+        $ref: '#/components/messages/ClientMessage'
+    subscribe:
+      operationId: serverPushMessage
+      summary: Server pushes a message to the client.
+      description: >-
+        The party sends a message to a connection. This covers both
+        targeted sends via `connection.send()` and fan-out via
+        `Room.broadcast(message, without?)`, which delivers the same
+        payload to every connected client (optionally excluding a list of
+        connection ids, typically used to skip the original sender).
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ServerMessage'
+          - $ref: '#/components/messages/BroadcastMessage'
+components:
+  messages:
+    ClientMessage:
+      name: ClientMessage
+      title: Client to Party Message
+      summary: An inbound message from a connected client.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Payload'
+    ServerMessage:
+      name: ServerMessage
+      title: Party to Client Message
+      summary: A targeted message sent by the party to one connection.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Payload'
+    BroadcastMessage:
+      name: BroadcastMessage
+      title: Party Broadcast Message
+      summary: >-
+        A message fanned out by the party to all connected clients via
+        `Room.broadcast()`. The party may pass an optional list of
+        connection ids to exclude from delivery.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Payload'
+  schemas:
+    Payload:
+      description: >-
+        PartyKit does not define a payload schema at the transport layer.
+        The runtime delivers either a UTF-8 string or a binary
+        `ArrayBuffer` to the developer's handlers; the application is
+        responsible for serialization (commonly JSON).
+      oneOf:
+        - type: string
+          description: A UTF-8 string payload.
+        - type: string
+          format: binary
+          description: A binary payload delivered as an ArrayBuffer.
