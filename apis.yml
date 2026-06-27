@@ -42,9 +42,9 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.partykit.io/reference/partyserver-api/
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/partykit
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/partyserver
   - aid: partykit:partysocket
     name: PartyKit PartySocket (Client API)
@@ -63,7 +63,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.partykit.io/reference/partysocket-api/
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/partysocket
   - aid: partykit:y-partykit
     name: Y-PartyKit (Yjs Integration)
@@ -80,7 +80,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.partykit.io/reference/y-partykit-api/
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/y-partykit
   - aid: partykit:deployed-party-http
     name: PartyKit Deployed Party (HTTP / WebSocket)
