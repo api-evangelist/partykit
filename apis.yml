@@ -101,6 +101,8 @@ apis:
       - type: AsyncAPI
         url: https://raw.githubusercontent.com/api-evangelist/partykit/refs/heads/main/asyncapi/partykit-asyncapi.yml
 common:
+  - type: DomainSecurity
+    url: security/partykit-domain-security.yml
   - type: Website
     url: https://www.partykit.io
   - type: Portal
