@@ -41,6 +41,16 @@ specificationVersion: '0.23'
 tags:
   - Real-Time
   - Multiplayer
+  - WebSocket
+  - Cloudflare
+  - Durable Objects
+  - Edge
+  - CRDT
+  - Yjs
+  - Serverless
+tags_raw:
+  - Real-Time
+  - Multiplayer
   - WebSockets
   - Cloudflare
   - Durable Objects
@@ -58,6 +68,11 @@ apis:
     humanURL: https://docs.partykit.io/reference/partyserver-api/
     baseURL: https://docs.partykit.io/reference/partyserver-api/
     tags:
+      - Server API
+      - Durable Objects
+      - WebSocket
+      - Hooks
+    tags_raw:
       - Server API
       - Durable Objects
       - WebSockets
@@ -79,6 +94,11 @@ apis:
     humanURL: https://docs.partykit.io/reference/partysocket-api/
     baseURL: https://docs.partykit.io/reference/partysocket-api/
     tags:
+      - Client SDK
+      - WebSocket
+      - Browser
+      - Cross-Runtime
+    tags_raw:
       - Client SDK
       - WebSockets
       - Browser
