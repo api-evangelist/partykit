@@ -10,15 +10,21 @@ description: >-
   Remix.
 type: Index
 deliveryModel:
-  model: saas
-  open_source: false
+  model: open-core
+  license: ISC
+  license_evidence:
+    repo: cloudflare/partykit
+    spdx: ISC
+    stars: 1275
+  open_source: true
   commercial: true
   callable_host: false
-  label: Hosted service · you call their endpoint
+  label: Open core · an OSS project plus a commercial hosted product
   confidence: medium
   source:
   - pricing
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: free
